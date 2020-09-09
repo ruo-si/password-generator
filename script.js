@@ -100,106 +100,95 @@ function generatePassword() {
         "Y",
         "Z",
     ];
+    // All possible characters pool
     var userOptionalChars = [];
 
-    var userOptions = {
-        expectSpecialChars: false,
-        expectNumericChars: false,
-        expectUppercaseChars: false,
-        expectLowercaseChars: false,
-    }
+    // Get user options and store in vars
+    var passwordLength = parseInt(prompt("enter password length"));
+
+    // Password array
+    var password = [];
 
 
     // ======= functions definition ======
-    function getUserOptions() {
-
-        // get user options and store in vars
-        var passwordLength = parseInt(prompt("enter password length"));
-
-        // check for length (it should be longer than 8 and shorter than 128)
-        if (passwordLength > 8 && passwordLength < 128) {
 
 
-            // check if lower
-            var expectLowercaseChars = confirm("do you want lower case?");
+    // check for length (it should be longer than 8 and shorter than 128)
+    if (passwordLength > 8 && passwordLength < 128) {
 
+        // check if lower
+        var expectLowercaseChars = confirm("do you want lower case?");
 
-            // check if upper
-            var expectUppercaseChars = confirm("do you want upper case?");
+        // check if upper
+        var expectUppercaseChars = confirm("do you want upper case?");
 
+        // check if special
+        var expectSpecialChars = confirm("do you want special case?");
 
-            // check if special
-            var expectSpecialChars = confirm("do you want special case?");
-
-
-            // check if numeric
-            var expectNumericChars = confirm("do you want numeric case?");
-        }
-
-        // else - alert user
-        else {
-            alert("password length should be longer than 8 and shorter than 128");
-
-        };
-
-        if (expectLowercaseChars === false && expectUppercaseChars === false && expectSpecialChars === false && expectNumericChars === false) {
-            alert("must choose at least one category")
-        }
-    }
-    function generatePassword(userOptions) {
-        var password = [];
-        
-        // if lower
-        // push a random lower char to password
-        // add lowerCharsArray to userOptionalChars
-        if (userOptions.expectLowercaseChars) {
-            password.push(lowerCasedCharacters[(Math.floor((Math.random() * 26) + 1))]);
-            userOptionalChars = userOptionalChars.concat(lowerCasedCharacters);
-        }
-
-        // if upper
-        // push a random upper char to password
-        // add upperCharsArray to userOptionalChars
-        if (userOptions.expectUppercaseChars) {
-            password.push(upperCasedCharacters[(Math.floor((Math.random() * 26) + 1))]);
-            userOptionalChars = userOptionalChars.concat(upperCasedCharacters);
-        }
-
-        // if special
-        // push a random special char to password
-        // add specialCharsArray to userOptionalChars
-        if (userOptions.expectSpecialChars) {
-            password.push(specialCharacters[(Math.floor((Math.random() * specialCharacters.length) + 1))]);
-            userOptionalChars = userOptionalChars.concat(specialCharacters);
-        }
-
-        // if numeric
-        // push a random numeric char to password
-        // add numericCharsArray to userOptionalChars
-        if (userOptions.expectNumericChars) {
-            password.push(numericCharacters[(Math.floor((Math.random() * numericCharacters.length) + 1))]);
-            userOptionalChars = userOptionalChars.concat(numericCharacters);
-        }
-
-
-        // mutate the array to a string
-        // return password string
-        password = password.toString();
-
-        // for loop between start number of elemnts in password to the requested number of charactars
-        for (i = password.length; i < passwordLength; i++) {
-            password.push(userOptionalChars[Math.floor((math.random() * userOptionalChars.length) + 1)]);
-        }
-        
-        return password;
+        // check if numeric
+        var expectNumericChars = confirm("do you want numeric case?");
     }
 
-    // ======= functions calls (start) ======
-    getUserOptions();
+    // else - alert user
+    else {
+        alert("password length should be longer than 8 and shorter than 128");
+    };
 
-    generatePassword(userOptions);
+    if (expectLowercaseChars === false && expectUppercaseChars === false && expectSpecialChars === false && expectNumericChars === false) {
+        alert("must choose at least one category")
+    };
+
+
+
+    // if lower
+    // push a random lower char to password
+    // add lowerCharsArray to userOptionalChars
+    if (expectLowercaseChars) {
+        // password.push(lowerCasedCharacters[(Math.floor((Math.random() * 26) + 1))]);
+        userOptionalChars = userOptionalChars.concat(lowerCasedCharacters);
+    };
+
+    // if upper
+    // push a random upper char to password
+    // add upperCharsArray to userOptionalChars
+    if (expectUppercaseChars) {
+        // password.push(upperCasedCharacters[(Math.floor((Math.random() * 26) + 1))]);
+        userOptionalChars = userOptionalChars.concat(upperCasedCharacters);
+    };
+
+    // if special
+    // push a random special char to password
+    // add specialCharsArray to userOptionalChars
+    if (expectSpecialChars) {
+        // password.push(specialCharacters[(Math.floor((Math.random() * specialCharacters.length) + 1))]);
+        userOptionalChars = userOptionalChars.concat(specialCharacters);
+    };
+
+    // if numeric
+    // push a random numeric char to password
+    // add numericCharsArray to userOptionalChars
+    if (expectNumericChars) {
+        // password.push(numericCharacters[(Math.floor((Math.random() * numericCharacters.length) + 1))]);
+        userOptionalChars = userOptionalChars.concat(numericCharacters);
+    };
+
+    // for loop between start number of elemnts in password to the requested number of charactars
+    for (var i = password.length; i < passwordLength; i++) {
+        password.push(userOptionalChars[Math.floor((Math.random() * userOptionalChars.length) + 1)]);
+    };
+    console.log(password);
+
+    // mutate the array to a string
+    // return password string
+    password = password.join("");
+
+    // return password;
+    return password;
 }
+
+
+
+// ======= functions calls (start) ======
+
 // Add event listener to generate button
 generateBtn.addEventListener("click", start);
-
-
